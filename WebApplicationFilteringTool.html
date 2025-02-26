@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Filter Tool</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #FFEB3B; /* Yellow text */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        /* Styling for logo */
+        #logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 60%;
+            border: 1px solid #FFEB3B;
+            background-color: #333;
+            color: #FFEB3B;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #FFEB3B;
+            color: #000;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #FFD700;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #333;
+            color: #FFEB3B;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo Section -->
+    <img src="logo.jpg" id="logo" alt="Website Filter Tool Logo" />
+
+    <h1>Website Security Checker</h1>
+    <input type="text" id="urlInput" placeholder="Enter website URL" />
+    <button onclick="checkWebsite()">Check Website</button>
+    <div id="output"></div>
+
+    <script>
+        function checkWebsite() {
+            const url = document.getElementById('urlInput').value;
+            if (url) {
+                fetch(`check_website.php?url=${encodeURIComponent(url)}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('output').innerText = data;
+                    })
+                    .catch(error => {
+                        document.getElementById('output').innerText = 'Error checking website.';
+                    });
+            } else {
+                document.getElementById('output').innerText = 'Please enter a URL.';
+            }
+        }
+    </script>
+</body>
+</html>
